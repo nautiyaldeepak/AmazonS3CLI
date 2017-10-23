@@ -1,0 +1,3 @@
+# BLUEPRINT
+
+upload contents to s3
