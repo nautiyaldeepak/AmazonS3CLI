@@ -11,6 +11,8 @@ namespace NewBucket
             string accessKey = "*** Enter Access Key Here ***";
             string secretKey = "*** Enter Secret Key Here ***";
             string NameOFTheBucket = "*** Name of the Bucket Here ***";
+            
+            // Region of the Amazon S3 Client is Mumbai i.e APSouth1
             AmazonS3Client client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.APSouth1);
             PutBucketRequest request = new PutBucketRequest
             {
