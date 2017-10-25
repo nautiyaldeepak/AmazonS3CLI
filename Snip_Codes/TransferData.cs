@@ -10,10 +10,10 @@ namespace CloudFolder
         static void Main(string[] args)
         {
             Console.WriteLine("Transferring Data To Amazon Cloud......");
-            string AccessKey = "AKIAJ5POXLMBIPZSC6UA";
-            string SecretKey = "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";
-            string existingBucketName = "cloud-folder-mumbai";
-            string directoryPath = @"C:\Users\deepa\Desktop\CloudFolder";
+            string AccessKey = "Enter Access Key";
+            string SecretKey = "Enter Secret Key";
+            string existingBucketName = "Enter Bucket Name";
+            string directoryPath = @"Enter File Path";
             try
             {
                 TransferUtility directoryTransferUtility = new TransferUtility(new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1));
