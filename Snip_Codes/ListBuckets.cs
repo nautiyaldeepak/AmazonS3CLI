@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -15,6 +10,8 @@ namespace CretBucket
         {
             string accessKey = "*** Enter Access Key Here ***";
             string secretKey = "*** Enter Secret Key Here ***";
+            
+            //  Region of the Amazon Client is Mumbai i.e ApSouth1
             using (AmazonS3Client client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.APSouth1))
             {
                 ListBucketsResponse response = client.ListBuckets();
@@ -23,8 +20,7 @@ namespace CretBucket
                     Console.WriteLine(b.BucketName);
                 }
             }
-            Console.ReadLine();
-            
+            Console.ReadLine();   
         }
     }
 }
