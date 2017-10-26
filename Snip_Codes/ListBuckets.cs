@@ -8,19 +8,27 @@ namespace CretBucket
     {
         static void Main(string[] args)
         {
-            string accessKey = "*** Enter Access Key Here ***";
-            string secretKey = "*** Enter Secret Key Here ***";
-            
-            //  Region of the Amazon Client is Mumbai i.e ApSouth1
-            using (AmazonS3Client client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.APSouth1))
+            string AccessKey = " *** Enter Access Key Here *** ";
+            string SecretKey = " *** Enter Secret Key Here *** ";
+
+            try
             {
-                ListBucketsResponse response = client.ListBuckets();
-                foreach (S3Bucket b in response.Buckets)
+                // Region of the Amazon S3 Client is Mumbai i.e APSouth1
+                using (AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1))
                 {
-                    Console.WriteLine(b.BucketName);
+                    ListBucketsResponse response = client.ListBuckets();
+                    foreach (S3Bucket b in response.Buckets)
+                    {
+                        Console.WriteLine(b.BucketName);
+                    }
                 }
             }
-            Console.ReadLine();   
+            catch(Exception e)
+            {
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
+            }
+            Console.ReadLine();
+            
         }
     }
 }
