@@ -6,21 +6,63 @@ namespace NewBucket
 {
     class Program
     {
+        public static string ClientRegion(string RegionOfClient)
+        {
+            switch(RegionOfClient)
+            {
+                case "ireland":
+                    return "eu-west-1";
+                case "mumbai":
+                    return "ap-south-1";
+                case "frankfurt":
+                    return "eu-central-1";
+                case "london":
+                    return "eu-west-2";
+                case "sydney":
+                    return "ap-southeast-2";
+                case "ohio":
+                    return "us-east-2";
+                case "virginia":
+                    return "us-east-1";
+                case "california":
+                    return "us-west-1";
+                case "oregon":
+                    return "us-west-2";
+                case "singapore":
+                    return "ap-southeast-1";
+                case "tokyo":
+                    return "ap-northeast-1";
+                case "canada":
+                    return "ca-central-1";
+                case "seoul":
+                    return "ap-northeast-2";
+                case "sao paulo":
+                    return "sa-east-1";
+            }
+            return "";
+        }
         static void Main(string[] args)
         {
-            string accessKey = "*** Enter Access Key Here ***";
-            string secretKey = "*** Enter Secret Key Here ***";
-            string NameOFTheBucket = "*** Name of the Bucket Here ***";
-            
-            // Region of the Amazon S3 Client is Mumbai i.e APSouth1
-            AmazonS3Client client = new AmazonS3Client(accessKey, secretKey, Amazon.RegionEndpoint.APSouth1);
-            PutBucketRequest request = new PutBucketRequest
+            string AccessKey = " *** Enter Access Key Here *** ";
+            string SecretKey = " *** Enter Secret Key Here *** ";
+            string NameOFTheBucket = "*** Name Of The Bucket *** ";
+            string RegionOFTheBucket = " *** Enter the Region of the bucket (Eg: mumbai) *** ";
+            RegionOFTheBucket = RegionOFTheBucket.ToLower();
+            try
             {
-                BucketName = NameOFTheBucket,
-                UseClientRegion = true
-            };
-            client.PutBucket(request);
-            Console.WriteLine("Bucket Created");
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOFTheBucket)));
+                PutBucketRequest request = new PutBucketRequest
+                {
+                    BucketName = NameOFTheBucket,
+                    UseClientRegion = true
+                };
+                client.PutBucket(request);
+                Console.WriteLine("Bucket Created");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
+            }
             Console.ReadLine();
         }
     }
