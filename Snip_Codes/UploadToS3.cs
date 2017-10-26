@@ -3,7 +3,7 @@ using Amazon.S3;
 using Amazon.S3.Transfer;
 using System.IO;
 
-namespace CloudFolder
+namespace UploadToS3
 {
     class Program
     {
