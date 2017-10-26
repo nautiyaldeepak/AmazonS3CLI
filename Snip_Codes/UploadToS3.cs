@@ -3,7 +3,7 @@ using Amazon.S3;
 using Amazon.S3.Transfer;
 using System.IO;
 
-namespace UploadToS3
+namespace TransferDataToS3
 {
     class Program
     {
