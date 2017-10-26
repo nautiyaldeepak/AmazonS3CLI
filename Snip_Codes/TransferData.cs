@@ -9,7 +9,6 @@ namespace CloudFolder
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Transferring Data To Amazon Cloud......");
             string AccessKey = "Enter Access Key";
             string SecretKey = "Enter Secret Key";
             string existingBucketName = "Enter Bucket Name";
