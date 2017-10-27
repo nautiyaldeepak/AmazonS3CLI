@@ -1,4 +1,6 @@
-﻿using System;
+//  Environment: Visual Studio 2017
+//  Download NuGet Package AWSSDK.S3﻿
+using System;
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -43,11 +45,11 @@ namespace EnableVersioning
         }
         static void Main(string[] args)
         {
-            string AccessKey = "AKIAJK4FKM5Y47J27OKQ";
-            string SecretKey = "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";
-            string NameOfTheBucket = "test-name-mumbai-bucket-region";
-            string status = "disable";
-            string RegionOfTheBucket = "mumbai";
+            string AccessKey = " *** Enter Access key ***";
+            string SecretKey = " *** Enter Sceret Key *** ";
+            string NameOfTheBucket = " *** Name Of The Bucket *** ";
+            string status = " *** enable OR disable *** ";
+            string RegionOfTheBucket = " *** Region Of The Bucket ***";
             status = status.ToLower();
             AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
             PutBucketVersioningRequest BucketVersioning = new PutBucketVersioningRequest();
