@@ -1,4 +1,6 @@
-﻿using System;
+//  Environment: Visual Studio 2017
+//  Download NuGet Package AWSSDK.S3﻿
+using System;
 using Amazon.S3;
 using Amazon.S3.Transfer;
 using System.IO;
