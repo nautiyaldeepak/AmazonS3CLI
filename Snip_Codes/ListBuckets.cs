@@ -10,8 +10,8 @@ namespace CretBucket
     {
         static void Main(string[] args)
         {
-            string AccessKey = " *** Enter Access Key Here *** ";
-            string SecretKey = " *** Enter Secret Key Here *** ";
+            string AccessKey = " *** Enter Access Key *** ";
+            string SecretKey = " *** Enter Secret Key *** ";
 
             try
             {
@@ -19,9 +19,10 @@ namespace CretBucket
                 using (AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1))
                 {
                     ListBucketsResponse response = client.ListBuckets();
+                    Console.WriteLine("\tCreation Date \t\t" + "Bucket Name");
                     foreach (S3Bucket b in response.Buckets)
                     {
-                        Console.WriteLine(b.BucketName);
+                        Console.WriteLine(b.CreationDate + " \t" + b.BucketName);
                     }
                 }
             }
