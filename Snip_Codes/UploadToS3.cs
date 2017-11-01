@@ -20,7 +20,8 @@ namespace TransferDataToS3
 
                 //  Here Region of the bucket is Mumbai. Change the region as per your bucket
 
-                TransferUtility directoryTransferUtility = new TransferUtility(new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1));
+                TransferUtility directoryTransferUtility = new TransferUtility();
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1);
                 directoryTransferUtility.UploadDirectory(directoryPath, existingBucketName);
                 directoryTransferUtility.UploadDirectory(directoryPath, existingBucketName, "*.*", SearchOption.AllDirectories);
                 TransferUtilityUploadDirectoryRequest request = new TransferUtilityUploadDirectoryRequest
