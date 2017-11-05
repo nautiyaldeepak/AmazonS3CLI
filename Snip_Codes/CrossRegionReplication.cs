@@ -35,9 +35,3 @@ namespace CrossRegionReplication
         }
     }
 }
-
-
-//string Source_Bucket = " *** Source Bucket Here *** ";
-//string Destination_Bucket = " *** Destination Bucket Here *** ";
-//string Source_ObjectKey = " *** Source Object Key *** ";
-//string Destination_ObjectKey = " *** Destination Object Key *** ";
