@@ -1,4 +1,6 @@
-﻿using System;
+//  Environment: Visual Studio 2017
+//  Download NuGet Package AWSSDK.S3﻿
+using System;
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
@@ -32,7 +34,7 @@ namespace ListVersions
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
             Console.ReadLine();
         }
