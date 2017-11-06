@@ -9,9 +9,9 @@ namespace ListVersions
     {
         static void Main(string[] args)
         {
-            string AccessKey = "";
-            string SecretKey = "";
-            string NameOfTheBucket = "";
+            string AccessKey = " *** Enter Access Key Here *** ";
+            string SecretKey = " *** Enter Secret Key Here *** ";
+            string NameOFTheBucket = "*** Name Of The Bucket *** ";
             try
             {
                 AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1);
