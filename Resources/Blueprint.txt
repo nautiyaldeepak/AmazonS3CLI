@@ -2,3 +2,4 @@
 
 upload contents to s3
 list buckets
+list contents of bucket
