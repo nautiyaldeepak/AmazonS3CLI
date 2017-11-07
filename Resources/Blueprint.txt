@@ -4,3 +4,5 @@ upload contents to s3
 list buckets
 list contents of bucket
 Enable Or Disable Versioning
+Create Bucket
+Delete Bucket
