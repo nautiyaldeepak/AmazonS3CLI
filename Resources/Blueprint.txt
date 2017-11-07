@@ -1,3 +1,4 @@
 # BLUEPRINT
 
 upload contents to s3
+list buckets
