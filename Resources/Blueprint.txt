@@ -6,3 +6,4 @@ list contents of bucket
 Enable Or Disable Versioning
 Create Bucket
 Delete Bucket
+Download contents from S3
