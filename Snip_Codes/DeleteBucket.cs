@@ -51,34 +51,41 @@ namespace DeleteBucket
             string NameOfTheBucket = " *** Name Of The Bucket *** ";
             string RegionOfTheBucket = " *** Enter The Region Of The Bucket (Eg: mumbai) ***";
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
-            AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
-            ListObjectsRequest ObjectRequest = new ListObjectsRequest
+            try
             {
-                BucketName = NameOfTheBucket
-            };
-            ListObjectsResponse ListResponse;
-            do
-            {
-                ListResponse = client.ListObjects(ObjectRequest);
-                foreach (S3Object obj in ListResponse.S3Objects)
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
+                ListObjectsRequest ObjectRequest = new ListObjectsRequest
                 {
-                    DeleteObjectRequest DeleteObject = new DeleteObjectRequest
+                    BucketName = NameOfTheBucket
+                };
+                ListObjectsResponse ListResponse;
+                do
+                {
+                    ListResponse = client.ListObjects(ObjectRequest);
+                    foreach (S3Object obj in ListResponse.S3Objects)
                     {
-                        BucketName = NameOfTheBucket,
-                        Key = obj.Key
-                    };
-                    client.DeleteObject(DeleteObject);
-                }
-                ObjectRequest.Marker = ListResponse.NextMarker;
-            } while (ListResponse.IsTruncated);
+                        DeleteObjectRequest DeleteObject = new DeleteObjectRequest
+                        {
+                            BucketName = NameOfTheBucket,
+                            Key = obj.Key
+                        };
+                        client.DeleteObject(DeleteObject);
+                    }
+                    ObjectRequest.Marker = ListResponse.NextMarker;
+                } while (ListResponse.IsTruncated);
 
-            DeleteBucketRequest DeleteRequest = new DeleteBucketRequest
+                DeleteBucketRequest DeleteRequest = new DeleteBucketRequest
+                {
+                    BucketName = NameOfTheBucket,
+                    UseClientRegion = true
+                };
+                client.DeleteBucket(DeleteRequest);
+                Console.WriteLine("Bucket Deleted");
+            }
+            catch(Exception e)
             {
-                BucketName = NameOfTheBucket,
-                UseClientRegion = true
-            };
-            client.DeleteBucket(DeleteRequest);
-            Console.WriteLine("Bucket Deleted");
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
+            }
             Console.ReadLine();
         }
     }
