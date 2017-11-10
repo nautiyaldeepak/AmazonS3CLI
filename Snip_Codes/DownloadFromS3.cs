@@ -45,19 +45,11 @@ namespace DownloadFromS3
         }
         static void Main(string[] args)
         {
-            /*
             string AccessKey = " *** Enter Access Key Here *** ";
             string SecretKey = " *** Enter Secret Key Here *** ";
             string NameOFTheBucket = " *** Name Of The Bucket *** ";
             string NameOfTheObject = " *** Name Of The Object *** ";  
             string RegionOfTheBucket = " ** Enter The Region Of The Bucket eg: mumbai *** ";
-             */
-
-            string AccessKey = "AKIAJK4FKM5Y47J27OKQ";
-            string SecretKey = "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";
-            string NameOFTheBucket = "n-virginia-bucket-bash-script";
-            string NameOfTheObject = "index.html";
-            string RegionOfTheBucket = "virginia";
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
             try
             {
