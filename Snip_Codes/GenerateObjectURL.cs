@@ -1,4 +1,6 @@
-﻿using System;
+//  Environment: Visual Studio 2017
+//  Download NuGet Package AWSSDK.S3
+using System;
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -8,16 +10,10 @@ namespace GenerateObjectURL
     {
         static void Main(string[] args)
         {
-            /*
             string AccessKey = " *** Enter Access Key Here *** ";
             string SecretKey = " *** Enter Secret Key Here *** ";
             string NameOfTheBucket = " *** Name Of The Bucket *** ";
             string NameOfTheObject = " *** Name Of The Object *** ";
-            string RegionOfTheBucket = " *** Enter The Region Of The Bucket (Eg: mumbai) ***";
-            RegionOfTheBucket = RegionOfTheBucket.ToLower();   */
-
-            string NameOfTheBucket = "ireland-myfiles-temporary-01";
-            string NameOfTheObject = "irelandverison.txt";
             string RegionOfTheBucket = " *** Enter The Region Of The Bucket (Eg: mumbai) ***";
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
             try
