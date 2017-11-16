@@ -51,10 +51,10 @@ namespace EnableVersioning
             string status = " *** enable OR disable *** ";
             string RegionOfTheBucket = " *** Region Of The Bucket ***";
             status = status.ToLower();
-            AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
-            PutBucketVersioningRequest BucketVersioning = new PutBucketVersioningRequest();
             try
             {
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
+                PutBucketVersioningRequest BucketVersioning = new PutBucketVersioningRequest();
                 BucketVersioning.BucketName = NameOfTheBucket;
                 if (status == "enable")
                 {
