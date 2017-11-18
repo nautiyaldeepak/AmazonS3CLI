@@ -8,3 +8,4 @@ Create Bucket
 Delete Bucket
 Download contents from S3
 Delete object from bucket
+Enable Or Disable Transfer Accleration 
