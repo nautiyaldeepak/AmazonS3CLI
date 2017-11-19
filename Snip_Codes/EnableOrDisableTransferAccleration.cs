@@ -1,4 +1,6 @@
-﻿using System;
+//  Environment: Visual Studio 2017
+//  Download NuGet Package AWSSDK.S3
+using System;
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -43,21 +45,12 @@ namespace EnableDisableTransferAccleration
         }
         static void Main(string[] args)
         {
-            /*
             string AccessKey = " *** Enter Access Key Here *** ";
             string SecretKey = " *** Enter Secret Key Here *** ";
             string NameOfTheBucket = " *** Name Of The Bucket *** ";
-            string TransferAcclerationStatus = "disable";
+            string TransferAcclerationStatus = " *** disable/enable *** ";
             string RegionOfTheBucket = " *** Enter The Region Of The Bucket (Eg: mumbai) ***";
-            RegionOfTheBucket = RegionOfTheBucket.ToLower();    */
-
-            string AccessKey = "AKIAJK4FKM5Y47J27OKQ";
-            string SecretKey = "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";
-            string NameOfTheBucket = "brand-channel-mumbai-bucket";
-            string TransferAcclerationStatus = "disable";
-            string RegionOfTheBucket = "mumbai";
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
-
             try
             {
                 AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
