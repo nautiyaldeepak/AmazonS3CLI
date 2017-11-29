@@ -2,6 +2,7 @@
 
 upload contents to s3
 list buckets
+list bucket details
 list contents of bucket
 Enable Or Disable Versioning
 Create Bucket
