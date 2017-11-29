@@ -44,14 +44,14 @@ namespace TagsBucketObject
         }
         static void Main(string[] args)
         {
-            string AccessKey = "AKIAJK4FKM5Y47J27OKQ";
-            string SecretKey = "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";
-            string NameOftheBucket = "cloud-folder-mumbai";
-            string NameOfTheObject = "Important/Desk/DeepakProgressReport.rtf";
-            string RegionOfTheBucket = "mumbai";
-            string TagKey = "Class";
-            string TagValue = "Temp";
-            string UseTagIn = "Object";
+            string AccessKey = "";
+            string SecretKey = "";
+            string NameOftheBucket = "";
+            string NameOfTheObject = "";
+            string RegionOfTheBucket = "";
+            string TagKey = "";
+            string TagValue = "";
+            string UseTagIn = " **** Object OR Bucket **** Eg: Bucket";
             try
             {
                 AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
