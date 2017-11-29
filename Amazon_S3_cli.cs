@@ -9,8 +9,6 @@ namespace AmazonS3CommandLine
 {
     class Program
     {
-        //  AKIAJK4FKM5Y47J27OKQ
-        //  vnJHGC4RvLCJwZe1ajGV/NoJw+KM4j3RyGMLAHeA
         public static string AccessKey = null;
         public static string SecretKey = null;
         public static List<string> AllAmazonRegions = new List<string>();
