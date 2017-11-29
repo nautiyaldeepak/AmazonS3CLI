@@ -1,1 +1,23 @@
 Command Sheet
+
+
+config			-> configure aws account provide AccessKeyId & SecretKeyID
+	config accesskey "Enter the access key" secretkey "Enter the secret key"
+clear			-> clear screen
+ls 			-> list of Buckets
+ls detail 		-> detail list of Bucket
+credentials		-> Displays AWS Credentials
+incopy			-> Upload data to S3
+	incopy "BucketName" "DirectoryInfoHere" "RegionOfBucketHere"
+outcopy			-> Download data from S3
+	outcopy "BucketName" "DirectoryInfoHere" "RegionOfBucketHere"
+cb 			-> Create Bucket
+	cb "NameOfTheBucketHere" "RegionOfTheBucketHere"
+rmb			-> Delete Bucket 
+	rmb "NameOfTheBucketHere" "RegionOfTheBucketHere"
+
+url			-> Generate url for an object
+	url "NameOfTheBucketHere" "NameOfTheObjectHere" "RegionOftheBucketHere"
+kill 			-> deletes AWS Credentials
+exit			-> Exit from Command Line
+
