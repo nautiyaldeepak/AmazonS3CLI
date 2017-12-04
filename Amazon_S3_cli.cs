@@ -38,6 +38,8 @@ namespace AmazonS3CommandLine
             AllCommands.Add("url");
             AllCommands.Add("incopy");
             AllCommands.Add("outcopy");
+            AllCommands.Add("en");
+            AllCommands.Add("disable");
 
         }
 
@@ -191,6 +193,66 @@ namespace AmazonS3CommandLine
             Console.Write("Secret Key : ");
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(SecretKey);
+        }
+
+        public static void EnableDisableTransferAcclerationFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
+        {
+            RegionOfTheBucket = RegionOfTheBucket.ToLower();
+            try
+            {
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
+                if (WhatToDo == "enable")
+                {
+                    PutBucketAccelerateConfigurationRequest Request = new PutBucketAccelerateConfigurationRequest
+                    {
+                        BucketName = NameOfTheBucket,
+                        AccelerateConfiguration = new AccelerateConfiguration { Status = BucketAccelerateStatus.Enabled }
+                    };
+                    client.PutBucketAccelerateConfiguration(Request);
+                    Console.WriteLine("Transfer Accleration Enabled");
+                }
+                else if (WhatToDo == "disable")
+                {
+                    PutBucketAccelerateConfigurationRequest Request = new PutBucketAccelerateConfigurationRequest
+                    {
+                        BucketName = NameOfTheBucket,
+                        AccelerateConfiguration = new AccelerateConfiguration { Status = BucketAccelerateStatus.Suspended }
+                    };
+                    client.PutBucketAccelerateConfiguration(Request);
+                    Console.WriteLine("Transfer Accleration Disabled");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
+            }
+        }
+
+        public static void EnableDisableVersioningFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
+        {
+            RegionOfTheBucket = RegionOfTheBucket.ToLower();
+            try
+            {
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
+                PutBucketVersioningRequest BucketVersioning = new PutBucketVersioningRequest();
+                BucketVersioning.BucketName = NameOfTheBucket;
+                if (WhatToDo == "enable")
+                {
+                    BucketVersioning.VersioningConfig = new S3BucketVersioningConfig() { Status = VersionStatus.Enabled };
+                    client.PutBucketVersioning(BucketVersioning);
+                    Console.WriteLine("Versioning Enabled");
+                }
+                else if (WhatToDo == "disable")
+                {
+                    BucketVersioning.VersioningConfig = new S3BucketVersioningConfig() { Status = VersionStatus.Suspended };
+                    client.PutBucketVersioning(BucketVersioning);
+                    Console.WriteLine("Versioning Disabled");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
+            }
         }
 
         public static void ListBucket(string UseCase)
@@ -458,6 +520,26 @@ namespace AmazonS3CommandLine
                             int temp = SplitTerm[1].IndexOf("/");
                             int len = SplitTerm[1].Length - temp;
                             GenerateObjectURL(SplitTerm[1].Substring(0, temp), SplitTerm[1].Substring(temp + 1, len - 1), SplitTerm[2]);
+                        }
+                        break;
+                    case "en":
+                        int tempLen = SplitTerm.Length;
+                        for(int i = 2; i < tempLen; i++)
+                        {
+                            if (SplitTerm[i] == "versioning")
+                                EnableDisableVersioningFunctionality(SplitTerm[1], SplitTerm[SplitTerm.Length - 1], "enable");
+                            else if (SplitTerm[i] == "transferaccleration")
+                                EnableDisableTransferAcclerationFunctionality(SplitTerm[1], SplitTerm[SplitTerm.Length - 1], "enable");
+                        }
+                        break;
+                    case "disable":
+                        int Len = SplitTerm.Length;
+                        for (int i = 2; i < Len; i++)
+                        {
+                            if (SplitTerm[i] == "versioning")
+                                EnableDisableVersioningFunctionality(SplitTerm[1], SplitTerm[SplitTerm.Length - 1], "disable");
+                            else if (SplitTerm[i] == "transferaccleration")
+                                EnableDisableTransferAcclerationFunctionality(SplitTerm[1], SplitTerm[SplitTerm.Length - 1], "disable");
                         }
                         break;
                     case "config":
