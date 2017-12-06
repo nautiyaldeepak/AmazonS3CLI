@@ -1,4 +1,6 @@
-﻿using System;
+﻿//  Environment: Visual Studio 2017
+//  Download NuGet Package AWSSDK.S3﻿
+using System;
 using Amazon.S3;
 using Amazon.S3.Model;
 
@@ -43,21 +45,11 @@ namespace BucketMakeNotMakePublic
         }
         static void Main(string[] args)
         {
-            string AccessKey = "AKIAJK4FKM5Y47J27OKQ";
-            string SecretKey = "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";
-            string NameOfTheBucket = "cloud-folder-mumbai";
-            string MakeStatus = " *** disable/enable *** ";
-            string RegionOfTheBucket = "mumbai";
-
-            /*
-             
             string AccessKey = " *** Enter Access Key Here *** ";
             string SecretKey = " *** Enter Secret Key Here *** ";
             string NameOfTheBucket = " *** Name Of The Bucket *** ";
-            string MakeStatus = " *** disable/enable *** ";
+            string MakeStatus = " *** private/publicread/publicreadwrite *** ";
             string RegionOfTheBucket = " *** Enter The Region Of The Bucket (Eg: mumbai) ***";
-             
-             */
             MakeStatus = MakeStatus.ToLower();
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
             try
