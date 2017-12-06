@@ -7,6 +7,8 @@ clear			-> clear screen
 ls 			-> list of Buckets
 ls detail 		-> detail list of Bucket
 credentials		-> Displays AWS Credentials
+en 			-> Enable Features
+	en "BucketName" versioning transferaccleration "RegionOfTheBucket"
 incopy			-> Upload data to S3
 	incopy "BucketName" "DirectoryInfoHere" "RegionOfBucketHere"
 outcopy			-> Download data from S3
