@@ -10,3 +10,4 @@ Delete Bucket
 Download contents from S3
 Delete object from bucket
 Enable Or Disable Transfer Accleration 
+Access Control Lists (Make Bucket Public/Private)
