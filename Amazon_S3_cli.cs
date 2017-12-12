@@ -4,16 +4,19 @@ using Amazon.S3.Model;
 using System.Collections.Generic;
 using Amazon.S3.Transfer;
 using System.IO;
+using System.Threading;
 
 namespace AmazonS3CommandLine
 {
     class Program
     {
+        public static string AmazonRegionForListingPurpose = "error";
         public static string AccessKey = null;
         public static string SecretKey = null;
         public static List<string> AllAmazonRegions = new List<string>();
         public static List<string> AllCommands = new List<string>();
         public static int VerifyCredentialsValue = 0;
+
 
         public static void InitialProvisioning()
         {
@@ -40,9 +43,9 @@ namespace AmazonS3CommandLine
             AllCommands.Add("outcopy");
             AllCommands.Add("en");
             AllCommands.Add("disable");
+            AllCommands.Add("acl");
 
         }
-
         public static int VerifyCredentials()
         {
             if (AccessKey == null || SecretKey == null)
@@ -60,7 +63,6 @@ namespace AmazonS3CommandLine
             }
             return 1;
         }
-
         public static string Configuration(string UserAccessKey, string UserSecretKey)
         {
             AccessKey = UserAccessKey;
@@ -83,7 +85,6 @@ namespace AmazonS3CommandLine
             VerifyCredentialsValue = 1;
             return "Code 271: Authorised";
         }
-
         public static string ClientRegion(string RegionOfClient)
         {
             switch (RegionOfClient)
@@ -119,7 +120,6 @@ namespace AmazonS3CommandLine
             }
             return "";
         }
-
         public static void CreateBucketFunctionality(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -139,7 +139,6 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
-
         public static void DeleteBucketFunctionality(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -179,7 +178,6 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
-
         public static void ClientCredentials()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -194,7 +192,6 @@ namespace AmazonS3CommandLine
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(SecretKey);
         }
-
         public static void EnableDisableTransferAcclerationFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -227,7 +224,6 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
-
         public static void EnableDisableVersioningFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -254,7 +250,6 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
-
         public static void ListBucket(string UseCase)
         {
             try
@@ -265,11 +260,12 @@ namespace AmazonS3CommandLine
                     if (UseCase == "detail")
                     {
                         Console.ForegroundColor = ConsoleColor.Magenta;
-                        Console.WriteLine("\tCreation Date \t\t" + "Total Objects \t\t" + "Bucket Name");
+                        Console.WriteLine("\tCreation Date \t\t" + "Total Objects\t\t"+"Region \t\t" + "Bucket Name");
                         Console.ForegroundColor = ConsoleColor.White;
+                        Console.WriteLine();
                         foreach (S3Bucket b in response.Buckets)
                         {
-                            Console.WriteLine(b.CreationDate + " \t\t" + CountObjectsInBucket(b.BucketName) + "\t\t\t" + b.BucketName);
+                            Console.WriteLine((b.CreationDate) + " \t\t" + CountObjectsInBucket(b.BucketName) + " \t\t\t" + RegionOfTheBucketForDetailListing(b.BucketName, 1) + "\t\t" + b.BucketName);
                         }
                     }
                     else if (UseCase == "normal")
@@ -289,7 +285,18 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
-
+        public static string RegionOfTheBucketForDetailListing(string CurrentAmazonRegion, int UseCaseValue)
+        {
+            if(UseCaseValue == 0)
+            {
+                AmazonRegionForListingPurpose = CurrentAmazonRegion;
+                return "";
+            }
+            else
+            {
+                return AmazonRegionForListingPurpose;
+            }
+        }
         public static void ListObjectsInBucket(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -314,7 +321,6 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
-
         public static int CountObjectsInBucket(string NameOfTheBucket)
         {
             int count = 0;
@@ -334,6 +340,7 @@ namespace AmazonS3CommandLine
                         {
                             count++;
                         }
+                        RegionOfTheBucketForDetailListing(AmazonRegion, 0);
                         Request.ContinuationToken = Response.NextContinuationToken;
                     } while (Response.IsTruncated == true);
                     return count;
@@ -344,7 +351,6 @@ namespace AmazonS3CommandLine
             }
             return count;
         }
-
         public static void GenerateObjectURL(string NameOfTheBucket, string NameOfTheObject, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -366,7 +372,6 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
-
         public static int UploadDataToS3(string NameOfThebucket, string DirectoryPath, string RegionOftheBucket)
         {
             if (DirectoryPath.Contains(".") == true)
@@ -420,7 +425,6 @@ namespace AmazonS3CommandLine
             }
             return 0;
         }
-
         public static void DownloadFromS3(string NameOfTheBucket, string NameOfTheObject, string @DirectoryPath, string RegionOfTheBucket)
         {
             string KeyNameOfTheObject;
@@ -446,6 +450,84 @@ namespace AmazonS3CommandLine
                 GetObjectResponse Response = client.GetObject(Request);
                 Response.WriteResponseStreamToFile(DirectoryPath + KeyNameOfTheObject);
                 Console.WriteLine("File Downloaded");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
+            }
+        }
+        public static void AccessControlListFunctionality(string NameOfTheBucket, string NameOfTheObject, string MakeStatus, string RegionOfTheBucket)
+        { 
+            
+            MakeStatus = MakeStatus.ToLower();
+            RegionOfTheBucket = RegionOfTheBucket.ToLower();
+            try
+            {
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
+                if(NameOfTheObject == null)
+                {
+                    if (MakeStatus == "publicread")
+                    {
+                        PutACLRequest Request = new PutACLRequest
+                        {
+                            BucketName = NameOfTheBucket,
+                            CannedACL = S3CannedACL.PublicRead
+                        };
+                        client.PutACL(Request);
+                    }
+                    else if (MakeStatus == "publicreadwrite")
+                    {
+                        PutACLRequest Request = new PutACLRequest
+                        {
+                            BucketName = NameOfTheBucket,
+                            CannedACL = S3CannedACL.PublicReadWrite
+                        };
+                        client.PutACL(Request);
+                    }
+                    else if (MakeStatus == "private")
+                    {
+                        PutACLRequest Request = new PutACLRequest
+                        {
+                            BucketName = NameOfTheBucket,
+                            CannedACL = S3CannedACL.Private
+                        };
+                        client.PutACL(Request);
+                    }
+                }
+                else
+                {
+                    if (MakeStatus == "publicread")
+                    {
+                        PutACLRequest Request = new PutACLRequest
+                        {
+                            BucketName = NameOfTheBucket,
+                            Key = NameOfTheObject,
+                            CannedACL = S3CannedACL.PublicRead
+                        };
+                        client.PutACL(Request);
+                    }
+                    else if (MakeStatus == "publicreadwrite")
+                    {
+                        PutACLRequest Request = new PutACLRequest
+                        {
+                            BucketName = NameOfTheBucket,
+                            Key = NameOfTheObject,
+                            CannedACL = S3CannedACL.PublicReadWrite
+                        };
+                        client.PutACL(Request);
+                    }
+                    else if (MakeStatus == "private")
+                    {
+                        PutACLRequest Request = new PutACLRequest
+                        {
+                            BucketName = NameOfTheBucket,
+                            Key = NameOfTheObject,
+                            CannedACL = S3CannedACL.Private
+                        };
+                        client.PutACL(Request);
+                    }
+                }
+                Console.WriteLine("Access type changed");
             }
             catch (Exception e)
             {
@@ -542,6 +624,19 @@ namespace AmazonS3CommandLine
                                 EnableDisableTransferAcclerationFunctionality(SplitTerm[1], SplitTerm[SplitTerm.Length - 1], "disable");
                         }
                         break;
+                    case "acl":
+                        int temporary = 0;
+                        temporary = SplitTerm[1].IndexOf("/");
+                        Console.WriteLine("temp" + temporary);
+                        int ACLlen = SplitTerm[1].Length - temporary;
+                        if (SplitTerm.Length == 4)
+                            if (temporary == -1)
+                                AccessControlListFunctionality(SplitTerm[1], null, SplitTerm[2], SplitTerm[3]);
+                            else
+                                AccessControlListFunctionality(SplitTerm[1].Substring(0, temporary), SplitTerm[1].Substring(temporary + 1, ACLlen - 1), SplitTerm[2], SplitTerm[3]);
+                        else if (SplitTerm.Length == 5)
+                            AccessControlListFunctionality(SplitTerm[1], SplitTerm[2], SplitTerm[3], SplitTerm[4]);
+                        break;
                     case "config":
                         if (SplitTerm[1] == "accesskey" && SplitTerm[3] == "secretkey")
                         {
@@ -596,8 +691,7 @@ namespace AmazonS3CommandLine
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Logged out");
             Console.ForegroundColor = ConsoleColor.White;
-
-            Console.ReadLine();
+            Thread.Sleep(100);
         }
     }
 }
