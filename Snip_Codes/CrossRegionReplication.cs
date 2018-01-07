@@ -10,8 +10,8 @@ namespace CrossRegionReplication
     {
         static void Main(string[] args)
         {
-            string AccessKey = "";
-            string SecretKey = "";
+            string AccessKey = " *** Enter Access Key *** ";
+            string SecretKey = " *** Enter Secret Key *** ";
             string Source_Bucket = " *** Source Bucket Here *** ";
             string Destination_Bucket = " *** Destination Bucket Here *** ";
             string Source_ObjectKey = " *** Source Object Key *** ";
