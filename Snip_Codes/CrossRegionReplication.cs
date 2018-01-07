@@ -16,6 +16,8 @@ namespace CrossRegionReplication
             string Destination_Bucket = " *** Destination Bucket Here *** ";
             string Source_ObjectKey = " *** Source Object Key *** ";
             string Destination_ObjectKey = " *** Destination Object Key *** ";
+            
+            //  Region for this client is mumbai -> APSouth1
             AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1);
             try
             {
