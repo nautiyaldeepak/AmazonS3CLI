@@ -19,7 +19,7 @@ namespace AmazonS3CommandLine
         public static List<string> AllCommands = new List<string>();
         public static int VerifyCredentialsValue = 0;
 
-
+        //  Initials -> executed once the user is authorized
         public static void InitialProvisioning()
         {
             AllAmazonRegions.Add("ireland");
