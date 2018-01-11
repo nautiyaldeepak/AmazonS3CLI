@@ -4,7 +4,7 @@ using System;
 using Amazon.S3;
 using Amazon.S3.Model;
 
-namespace BucketMakeNotMakePublic
+namespace BucketMake~NotMakePublic
 {
     class Program
     {
