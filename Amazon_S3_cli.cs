@@ -537,6 +537,8 @@ namespace AmazonS3CommandLine
             }
         }
 
+         
+        //  The main program stars here:
 
         static void Main(string[] args)
         {
