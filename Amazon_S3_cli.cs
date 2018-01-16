@@ -65,6 +65,8 @@ namespace AmazonS3CommandLine
             }
             return 1;
         }
+        
+        //  Establish a connection
         public static string Configuration(string UserAccessKey, string UserSecretKey)
         {
             AccessKey = UserAccessKey;
