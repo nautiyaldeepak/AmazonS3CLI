@@ -48,6 +48,8 @@ namespace AmazonS3CommandLine
             AllCommands.Add("acl");
 
         }
+        
+        //  Credentials verification Function
         public static int VerifyCredentials()
         {
             if (AccessKey == null || SecretKey == null)
