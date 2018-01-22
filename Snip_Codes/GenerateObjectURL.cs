@@ -16,6 +16,10 @@ namespace GenerateObjectURL
             string NameOfTheObject = " *** Name Of The Object *** ";
             string RegionOfTheBucket = " *** Enter The Region Of The Bucket (Eg: mumbai) ***";
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
+            
+            // The region of the client is Mumbai -> APSouth1
+            //  Amazon Client provides access to S3
+            
             try
             {
                 AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1);
