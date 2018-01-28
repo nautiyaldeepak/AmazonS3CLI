@@ -91,6 +91,9 @@ namespace AmazonS3CommandLine
             VerifyCredentialsValue = 1;
             return "Code 271: Authorised";
         }
+        
+        //  Regions associated with AWS
+        //  Future Regions will be included
         public static string ClientRegion(string RegionOfClient)
         {
             switch (RegionOfClient)
