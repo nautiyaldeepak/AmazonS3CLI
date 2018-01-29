@@ -148,6 +148,8 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
+        
+        //  Delete bucket functionality
         public static void DeleteBucketFunctionality(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
