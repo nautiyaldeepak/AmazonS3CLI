@@ -362,6 +362,9 @@ namespace AmazonS3CommandLine
             }
             return count;
         }
+        
+        //  Generating URL for bucket object
+        
         public static void GenerateObjectURL(string NameOfTheBucket, string NameOfTheObject, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
