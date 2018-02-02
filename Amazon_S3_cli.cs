@@ -129,6 +129,9 @@ namespace AmazonS3CommandLine
             }
             return "";
         }
+        
+        //  Create Amazon S3 bucket
+        
         public static void CreateBucketFunctionality(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
