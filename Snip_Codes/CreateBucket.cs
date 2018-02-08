@@ -38,6 +38,8 @@ namespace NewBucket
                     return "ca-central-1";
                 case "seoul":
                     return "ap-northeast-2";
+                case "paris":
+                    return "eu-east-5";
                 case "sao paulo":
                     return "sa-east-1";
             }
