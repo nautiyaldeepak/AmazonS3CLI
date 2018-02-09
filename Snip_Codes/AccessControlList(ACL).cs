@@ -36,6 +36,8 @@ namespace BucketMake~NotMakePublic
                     return "ap-northeast-1";
                 case "canada":
                     return "ca-central-1";
+                case "paris":
+                    return "eu-west-3";
                 case "seoul":
                     return "ap-northeast-2";
                 case "sao paulo":
