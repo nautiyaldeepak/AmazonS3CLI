@@ -39,7 +39,7 @@ namespace NewBucket
                 case "seoul":
                     return "ap-northeast-2";
                 case "paris":
-                    return "eu-east-5";
+                    return "eu-west-3";
                 case "sao paulo":
                     return "sa-east-1";
             }
