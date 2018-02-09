@@ -33,6 +33,8 @@ namespace DeleteBucket
                     return "us-west-2";
                 case "singapore":
                     return "ap-southeast-1";
+                case "paris":
+                    return "eu-west-3";
                 case "tokyo":
                     return "ap-northeast-1";
                 case "canada":
