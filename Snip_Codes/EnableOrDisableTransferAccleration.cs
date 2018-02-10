@@ -38,6 +38,8 @@ namespace EnableDisableTransferAccleration
                     return "ca-central-1";
                 case "seoul":
                     return "ap-northeast-2";
+                case "paris":
+                    return "eu-west-3";
                 case "sao paulo":
                     return "sa-east-1";
             }
