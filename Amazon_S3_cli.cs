@@ -709,6 +709,8 @@ namespace AmazonS3CommandLine
                 Scape:
                 Console.Write("");
             } while (loop == "active");
+            
+            
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("Logged out");
             Console.ForegroundColor = ConsoleColor.White;
