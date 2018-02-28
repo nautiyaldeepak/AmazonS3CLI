@@ -242,6 +242,8 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
+        
+        //  Enable Disable Versioning
         public static void EnableDisableVersioningFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
