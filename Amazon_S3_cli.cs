@@ -210,6 +210,8 @@ namespace AmazonS3CommandLine
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(SecretKey);
         }
+        
+        //  Enable/Disable Transfer Accleration on Bucket/Object
         public static void EnableDisableTransferAcclerationFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
