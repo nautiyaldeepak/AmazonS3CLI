@@ -1,6 +1,7 @@
 //  Environment: Visual Studio 2017
 //  Download NuGet Package AWSSDK.S3
 //  DynamoDB Packages
+//  AWS Core Package
 
 using System;
 using Amazon.S3;
