@@ -40,6 +40,7 @@ namespace AmazonS3CommandLine
             AllAmazonRegions.Add("virginia");
             AllAmazonRegions.Add("paris");
             AllAmazonRegions.Add("sao paulo");
+            AllAmazonRegions.Add("China");
 
             AllCommands.Add("ls");
             AllCommands.Add("cb");
