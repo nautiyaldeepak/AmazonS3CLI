@@ -275,6 +275,9 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
+        
+        //  List all buckets
+        
         public static void ListBucket(string UseCase)
         {
             try
