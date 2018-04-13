@@ -7,6 +7,7 @@ using System.IO;
 
 namespace TransferDataToS3
 {
+    // adding regions in progress
     class Program
     {
         public static int UploadToS3()
