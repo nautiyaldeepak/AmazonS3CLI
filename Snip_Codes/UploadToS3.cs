@@ -44,6 +44,9 @@ namespace TransferDataToS3
             Directory.CreateDirectory(directoryPath);
             Console.ReadLine();
         }
+        
+        //  Main Function
+        
         static void Main(string[] args)
         {
             UploadToS3();
