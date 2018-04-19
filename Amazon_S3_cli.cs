@@ -25,6 +25,8 @@ namespace AmazonS3CommandLine
         //  Initials -> executed once the user is authorized
         public static void InitialProvisioning()
         {
+            //  Regions Available
+            
             AllAmazonRegions.Add("ireland");
             AllAmazonRegions.Add("mumbai");
             AllAmazonRegions.Add("frankfurt");
@@ -42,6 +44,8 @@ namespace AmazonS3CommandLine
             AllAmazonRegions.Add("sao paulo");
             AllAmazonRegions.Add("China");
 
+            // Commands Available
+            
             AllCommands.Add("ls");
             AllCommands.Add("cb");
             AllCommands.Add("rmb");
