@@ -54,6 +54,7 @@ namespace TransferDataToS3
             string SecretKey = "*** Enter Secret Key ***";
             string existingBucketName = "*** Bucket Name ***";
             string directoryPath = @"*** Location of the File ***";
+            string RegionOfTheBucket = "*** Region Name ***"
             try
             {
                 
