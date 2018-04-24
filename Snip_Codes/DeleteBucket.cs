@@ -1,5 +1,6 @@
 //  Environment: Visual Studio 2017
 //  Download NuGet Package AWSSDK.S3
+//  Default Region for this program is Mumbai (APSouth1)
 using System;
 using Amazon;
 using Amazon.S3;
@@ -44,7 +45,7 @@ namespace DeleteBucket
                 case "sao paulo":
                     return "sa-east-1";
             }
-            return "";
+            return "ap-south-1";
         }
         static void Main(string[] args)
         {
