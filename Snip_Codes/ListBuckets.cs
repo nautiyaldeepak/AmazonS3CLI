@@ -1,5 +1,6 @@
 //  Environment: Visual Studio 2017
 //  Download NuGet Package AWSSDK.S3
+//  Default Region for this program is Mumbai (APSouth1)
 using System;
 using Amazon.S3;
 using Amazon.S3.Model;
