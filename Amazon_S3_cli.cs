@@ -1,7 +1,23 @@
-//  Environment: Visual Studio 2017
-//  Download NuGet Package AWSSDK.S3
-//  DynamoDB Packages
-//  AWS Core Package
+/*
+
+Environment: Visual Studio 2017
+Download NuGet Package AWSSDK.S3
+AWS Core Package
+This program requires accesskey & secretkey for S3.
+    You can get accesskey & secretkey using IAM
+    link: https://docs.aws.amazon.com/general/latest/gr/managing-aws-access-keys.html
+    
+    command sheet for help:
+    link: https://github.com/nautiyaldeepak/AmazonS3CLI/blob/master/Resources/cmd_sheet.txt
+    link: https://github.com/nautiyaldeepak/AmazonS3CLI/blob/master/Resources/command-sheet.docx
+
+    github:
+    link: https://github.com/nautiyaldeepak/AmazonS3CLI
+
+    developerInfo:
+    link: https://github.com/nautiyaldeepak
+
+*/
 
 using System;
 using Amazon.S3;
@@ -22,7 +38,10 @@ namespace AmazonS3CommandLine
         public static List<string> AllCommands = new List<string>();
         public static int VerifyCredentialsValue = 0;
 
-        //  Initials -> executed once the user is authorized
+        /*
+            All the essentials commands and regions are added.
+            Region Name help to automate the region code.
+         */
         public static void InitialProvisioning()
         {
             //  Regions Available
@@ -35,6 +54,7 @@ namespace AmazonS3CommandLine
             AllAmazonRegions.Add("ohio");
             AllAmazonRegions.Add("seoul");
             AllAmazonRegions.Add("california");
+            AllAmazonRegions.Add("osaka-local");
             AllAmazonRegions.Add("oregon");
             AllAmazonRegions.Add("singapore");
             AllAmazonRegions.Add("tokyo");
@@ -42,7 +62,8 @@ namespace AmazonS3CommandLine
             AllAmazonRegions.Add("virginia");
             AllAmazonRegions.Add("paris");
             AllAmazonRegions.Add("sao paulo");
-            AllAmazonRegions.Add("China");
+            AllAmazonRegions.Add("beijing");
+            AllAmazonRegions.Add("Ningxia");
 
             // Commands Available
             
@@ -57,52 +78,12 @@ namespace AmazonS3CommandLine
             AllCommands.Add("acl");
 
         }
-        
-        //  Credentials verification Function
-        public static int VerifyCredentials()
-        {
-            if (AccessKey == null || SecretKey == null)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("AccessKey ID & SecretKey ID not configured");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("Use Command");
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine("\t config accesskey \"EnterAccessKeyHere\" secretkey \"EnterSecretKeyHere\"");
-                Console.WriteLine("\t Example: ");
-                Console.WriteLine("\t config accesskey AKIAJK4FKM5Y47J26YWER secretkey vnJHGC4RvLCJwZe1ajGV/NoJw+KM4j3RyGMAhqWT");
-                Console.ForegroundColor = ConsoleColor.White;
-                return 0;
-            }
-            return 1;
-        }
-        
-        //  Establish a connection
-        public static string Configuration(string UserAccessKey, string UserSecretKey)
-        {
-            AccessKey = UserAccessKey;
-            SecretKey = UserSecretKey;
-            try
-            {
-                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1);
-                {
-                    ListBucketsResponse response = client.ListBuckets();
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("ERROR MESSAGE : " + e.Message);
-                AccessKey = null;
-                SecretKey = null;
-                return "Code 404: Not Authorised";
-            }
-            InitialProvisioning();
-            VerifyCredentialsValue = 1;
-            return "Code 271: Authorised";
-        }
-        
-        //  Regions associated with AWS
-        //  Future Regions will be included
+
+        /*
+            All The AWS region codes are availabe here.
+            User when using a command just have to provide the region name, the
+            region code will be automatically invoked.  
+         */
         public static string ClientRegion(string RegionOfClient)
         {
             switch (RegionOfClient)
@@ -137,12 +118,76 @@ namespace AmazonS3CommandLine
                     return "eu-west-3";
                 case "sao paulo":
                     return "sa-east-1";
+                case "osaka-local":
+                    return "ap-northeast-3";
+                case "beijing":
+                    return "cn-north-1";
+                case "ningxia":
+                    return "cn-northwest-1";
             }
             return "";
         }
+
+        /*
+            Before execution of any command this function is executed. This function verifies that
+            both accesskey & secretkey variables do have a value.
+            for any command to run both accesskey & secretkey are required.
+
+            If both have a value then the command will execute further.
+            If any of the value is not present then the command will not be executed and it wiil prompt the user
+            to first configure the credentials. 
+         */
+        public static int VerifyCredentials()
+        {
+            if (AccessKey == null || SecretKey == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("AccessKey ID & SecretKey ID not configured");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Use Command");
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("\t config accesskey \"EnterAccessKeyHere\" secretkey \"EnterSecretKeyHere\"");
+                Console.WriteLine("\t Example: ");
+                Console.WriteLine("\t config accesskey AKIAJK4FKM5Y47J26YWER secretkey vnJHGC4RvLCJwZe1ajGV/NoJw+KM4j3RyGMAhqWT");
+                Console.ForegroundColor = ConsoleColor.White;
+                return 0;
+            }
+            return 1;
+        }
         
-        //  Create Amazon S3 bucket
+        /*
+            This function is to verify the credentials i.e accesskey & secretkey.
+            If the credentials are correct the system will display { Authorised with the code:271 } 
+            If the credentials are incorrect then the system will display { Not Authorised with code:404 }
+         */
+        public static string Configuration(string UserAccessKey, string UserSecretKey)
+        {
+            AccessKey = UserAccessKey;
+            SecretKey = UserSecretKey;
+            try
+            {
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1);
+                {
+                    ListBucketsResponse response = client.ListBuckets();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("ERROR MESSAGE : " + e.Message);
+                AccessKey = null;
+                SecretKey = null;
+                return "Code 404: Not Authorised";
+            }
+            InitialProvisioning();
+            VerifyCredentialsValue = 1;
+            return "Code 271: Authorised";
+        }
         
+        /*
+            This function create bucket in S3. 
+            The bucket by default will not be public.
+            There are guidelines as per the bucket name. 
+         */
         public static void CreateBucketFunctionality(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -163,7 +208,9 @@ namespace AmazonS3CommandLine
             }
         }
         
-        //  Delete bucket functionality
+        /*
+            This function deletes bucket from S3.
+         */
         public static void DeleteBucketFunctionality(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -203,6 +250,11 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
+
+        /*
+            Stores AWS credentials.
+            accesskey & secretkey.
+         */
         public static void ClientCredentials()
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
@@ -218,7 +270,12 @@ namespace AmazonS3CommandLine
             Console.Write(SecretKey);
         }
         
-        //  Enable/Disable Transfer Accleration on Bucket/Object
+        /*
+            This function enables/disables the transfer accleration of a bucket.
+            Use the keyword enable/disable.
+            { Eg: 
+                    NameOfTheBucket transferaccleration mumbai enable }
+         */
         public static void EnableDisableTransferAcclerationFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -252,7 +309,12 @@ namespace AmazonS3CommandLine
             }
         }
         
-        //  Enable Disable Versioning
+        /*
+            This function enables/disables the versioning of a bucket.
+            Use the keyword enable/disable.
+            { Eg: 
+                    NameOfTheBucket versioning mumbai enable }
+         */
         public static void EnableDisableVersioningFunctionality(string NameOfTheBucket, string RegionOfTheBucket, string WhatToDo)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -280,8 +342,12 @@ namespace AmazonS3CommandLine
             }
         }
         
-        //  List all buckets
-        
+        /*
+            List all bucket in AWS account
+            2 types of list command: 
+                1. ls -> displays name of the buckets only.
+                2. ls detail -> displays name of the bucket with other details { creation date, no of objects, region }
+         */
         public static void ListBucket(string UseCase)
         {
             try
@@ -317,6 +383,10 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
+
+        /*
+            Dependant function for detail listing 
+         */
         public static string RegionOfTheBucketForDetailListing(string CurrentAmazonRegion, int UseCaseValue)
         {
             if(UseCaseValue == 0)
@@ -329,6 +399,10 @@ namespace AmazonS3CommandLine
                 return AmazonRegionForListingPurpose;
             }
         }
+
+        /*
+            Function to list objects in bucket
+         */
         public static void ListObjectsInBucket(string NameOfTheBucket, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -353,6 +427,10 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
+
+        /*
+            Function to count number of objects in bucket
+         */
         public static int CountObjectsInBucket(string NameOfTheBucket)
         {
             int count = 0;
@@ -384,8 +462,10 @@ namespace AmazonS3CommandLine
             return count;
         }
         
-        //  Generating URL for bucket object
-        
+        /*
+            This function generates object url.
+            url for web browser.
+         */
         public static void GenerateObjectURL(string NameOfTheBucket, string NameOfTheObject, string RegionOfTheBucket)
         {
             RegionOfTheBucket = RegionOfTheBucket.ToLower();
@@ -407,6 +487,10 @@ namespace AmazonS3CommandLine
                 Console.WriteLine("ERROR MESSAGE : " + e.Message);
             }
         }
+
+        /*
+            This function is to upload data to S3.
+         */
         public static int UploadDataToS3(string NameOfThebucket, string DirectoryPath, string RegionOftheBucket)
         {
             if (DirectoryPath.Contains(".") == true)
@@ -460,6 +544,10 @@ namespace AmazonS3CommandLine
             }
             return 0;
         }
+
+        /*
+            This function downoads data from S3.
+         */
         public static void DownloadFromS3(string NameOfTheBucket, string NameOfTheObject, string @DirectoryPath, string RegionOfTheBucket)
         {
             string KeyNameOfTheObject;
@@ -492,8 +580,11 @@ namespace AmazonS3CommandLine
             }
         }
         
-        //  Access Control on bucket/object functionality
-        
+        /*
+            This function is for acl (access control list)
+            Use this command to make oject/bucket publicread, publicreadwrite, private
+            On success message is displayed { access type changed }
+         */
         public static void AccessControlListFunctionality(string NameOfTheBucket, string NameOfTheObject, string MakeStatus, string RegionOfTheBucket)
         { 
             
@@ -573,9 +664,9 @@ namespace AmazonS3CommandLine
             }
         }
 
-         
-        //  The main program stars here:
-
+        /*
+            Main program starts from here
+         */
         static void Main(string[] args)
         {
             InitialProvisioning();
