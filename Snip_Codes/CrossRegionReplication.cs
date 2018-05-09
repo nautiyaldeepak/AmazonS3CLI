@@ -63,8 +63,8 @@ namespace CrossRegionReplication
             string Source_ObjectKey = " *** Source Object Key *** ";
             string Destination_ObjectKey = " *** Destination Object Key *** ";
             string RegionOfTheBucket = " *** Enter the region of the bucket *** "
+            status = status.ToLower();
             
-            //  Region for this client is mumbai -> APSouth1
             AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOfTheBucket)));
             try
             {
