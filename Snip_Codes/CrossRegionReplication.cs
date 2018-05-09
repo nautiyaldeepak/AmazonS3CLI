@@ -10,6 +10,8 @@ namespace CrossRegionReplication
     {
         public static string ClientRegion(string RegionOfClient)
         {
+            //  AWS Region Codes
+
             switch (RegionOfClient)
             {
                 case "ireland":
