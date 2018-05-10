@@ -54,15 +54,15 @@ namespace TransferDataToS3
             string SecretKey = "*** Enter Secret Key ***";
             string existingBucketName = "*** Bucket Name ***";
             string directoryPath = @"*** Location of the File ***";
-            string RegionOfTheBucket = "*** Region Name ***"
+            string RegionOFTheBucket = " *** Enter the Region of the bucket (Eg: mumbai) *** ";
+            RegionOFTheBucket = RegionOFTheBucket.ToLower();
             try
             {
-                
                 //  Here Region of the bucket is Mumbai. Change the region as per your bucket
                 //  Amazon Client provides access to S3
                 
                 TransferUtility directoryTransferUtility = new TransferUtility();
-                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.APSouth1);
+                AmazonS3Client client = new AmazonS3Client(AccessKey, SecretKey, Amazon.RegionEndpoint.GetBySystemName(ClientRegion(RegionOFTheBucket)));
                 directoryTransferUtility.UploadDirectory(directoryPath, existingBucketName);
                 directoryTransferUtility.UploadDirectory(directoryPath, existingBucketName, "*.*", SearchOption.AllDirectories);
                 TransferUtilityUploadDirectoryRequest request = new TransferUtilityUploadDirectoryRequest
