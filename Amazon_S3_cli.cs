@@ -67,7 +67,7 @@ namespace AmazonS3CommandLine
             AllAmazonRegions.Add("beijing");
             AllAmazonRegions.Add("Ningxia");
 
-            // Commands Available
+            // Commands Available for this commandLine
             
             AllCommands.Add("ls");
             AllCommands.Add("cb");
